@@ -9,16 +9,22 @@
     justify-content: center;
     align-items: center;
     font-family: "Montserrat", sans-serif;
-    background-color: green;
-
+    background-color: white;
     a {
-        color: white;
+        color: black;
         font-size: 1.2rem;
         text-decoration: none; /* Remove underline from links */
         font-weight: 300;
         cursor: pointer;
     }
     margin: 0;
+}
+.navbar-mid{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar-left {
@@ -38,6 +44,10 @@
     align-items: center;
     justify-content: end;
     padding-right: 5vw;
+    a{
+        color:black;
+    }
+    
 }
 
 .login-button{
@@ -48,7 +58,7 @@
     border-radius: 1vh;
     background-color:transparent;
     font-family: "Montserrat", sans-serif;
-    color:white;
+    color: green;
         font-size: 1.2rem;
         text-decoration: none; /* Remove underline from links */
         font-weight: 300;

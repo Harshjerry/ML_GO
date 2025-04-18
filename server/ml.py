@@ -1,33 +1,32 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from ultralytics import YOLO
 from PIL import Image
-import io
+from collections import Counter
 
 app = Flask(__name__)
-CORS(app)  # allows requests from React frontend
+CORS(app)  # Allow frontend to access backend
 
-@app.route('/')
-def home():
-    return "ML model server is running"
+model = YOLO("best.pt")
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    if 'image' not in request.files:
-        return jsonify({"error": "No image provided"}), 400
+    file = request.files['image']
+    img = Image.open(file.stream)
+    results = model.predict(img)
+    boxes = results[0].boxes.data
+    class_names = [model.names[int(cls)] for cls in boxes[:, 5]]
 
-    image = request.files['image']
-    try:
-        img = Image.open(image.stream)
-        # Replace this section with actual model inference
-        print("Image received for prediction")
-        dummy_result = {
-            "WBC_count": 5600,
-            "RBC_count": 4.5e6,
-            "status": "Normal"
-        }
-        return jsonify(dummy_result)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+    count = Counter(class_names)
+
+    # Convert to regular dict and rename keys to match frontend
+    response = {
+        "WBC": count.get("WBC", 0),
+        "RBC": count.get("RBC", 0),
+        "Platelets": count.get("platelets", 0)
+    }
+
+    return jsonify(response)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

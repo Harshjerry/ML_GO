@@ -1,5 +1,6 @@
 import React from 'react';
 import './result.css';
+import Navbar from "../../components/Navbar/Navbar";
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Result() {
@@ -17,14 +18,17 @@ export default function Result() {
   }
 
   return (
-    <div className="result-container">
-      <h2>Prediction Result</h2>
-      <div className="result-card">
-        <p><strong>WBC Count:</strong> {result.WBC_count}</p>
-        <p><strong>RBC Count:</strong> {result.RBC_count}</p>
-        <p><strong>Status:</strong> {result.status}</p>
+    <>
+      <Navbar />
+      <div className="result-container">
+        <h2>Prediction Result</h2>
+        <div className="result-card">
+          <p><strong>WBC Count:</strong> {result.WBC}</p>
+          <p><strong>RBC Count:</strong> {result.RBC}</p>
+          <p><strong>Platelets Count:</strong> {result.Platelets}</p>
+        </div>
+        <button onClick={() => navigate('/upload')}>Analyze Another</button>
       </div>
-      <button onClick={() => navigate('/upload')}>Analyze Another</button>
-    </div>
+    </>
   );
 }

@@ -14,7 +14,7 @@ export default function Hero() {
             <div className='content_div'>
                 <h1>Precision <span className='green'>Diagnosis</span> at your fingertips</h1>
                 <h3>Bringing clinical diagnosis at your doorstep</h3>
-                <button onClick={handleClick}>Upload Photo</button>
+                <button onClick={handleClick}>Upload  Image</button>
             </div>
             <div className='image_div'>
                 <img src="./med.jpg" alt="medical representation" />
